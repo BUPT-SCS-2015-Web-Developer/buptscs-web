@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>BUPT 2015 SCS Information System</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--  确保适当的绘制和触屏缩放 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="js/bootstrap.min.js"></script>
+
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<script>
+      $(document).ready(function(){
+        $('#submit').click(function(){
+          if($('#username').val() == ''){
+            alert('请填写账号');
+            return 
+          }
+          if($('#password').val() == ''){
+            alert('请填写密码');
+            return 
+          }
+          $.ajax({
+            type:'post',
+            url:'login.php',
+            data:{
+              username:$('#username').val(),
+              password:$('#password').val()
+            },
+            dataType:'json',
+            success:function(json){
+              if(json.msg)
+                   alert(json.msg);
+              if(json.url){window.location.href=json.url};
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                        alert('登陆失败，请重试');
+            }
+          });
+        });
+      });
+        //回车时，默认是登陆
+       function KeyDown(){
+       if(window.event.keyCode == 13 || window.event.which == 13 ){
+        if (document.getElementById("submit")!=null){
+                           document.getElementById("submit").click();
+         }
+       }
+       }
+    </script>
+
+<style type="text/css">
+
+.top{width:790px;height:72px; margin-top:100px;}
+.top_left{float:left;}
+.top_right{float:right; width:200px; text-align:right; padding-right:25px; margin-top:30px;}
+.tab{background-image:url(img/index_dlmid.jpg); background-repeat:repeat-y; width:335px;}
+
+.main{width:815px;}
+.main_left{float:left; margin-left:50px; width:300px; margin-top:15px}
+.main_right{float:right; margin-right:80px; margin-top:0px}
+.dltop{position:absolute; width:335px; height:104px; display:block;}
+
+.tit{color:#555555; font-size:14px; width:110px; text-align:right;font-family:Microsoft YaHei;}
+.banquan{color:#959595;text-align:center; padding-top:15px; font-size:12px; line-height:18px; }
+.fgx{width:790px;background-image:url(img/index_fgx.jpg); background-repeat:no-repeat; background-position:50% 0%; text-align:center;  }
+
+
+div{margin:0px auto; font-size:120px; line-height:20px; }
+td{height:32px; font-size:12px; line-height:20px; }
+
+
+</style>
+
+</head>
+
+<body onkeydown="KeyDown();">
+
+    <div class="top">
+         <div class="top_left"><img src="img/index_logo.png"/></div></div>
+    <div class="main">
+      <div class="main_left">
+          <div><img src="img/logo3.jpg"  /></div>        
+      </div>
+      <div class="main_right">
+          <div class="dltop"><img src="img/index_dltop.jpg" /></div>
+          <div style="padding-top:104px; position:relative;">
+              <table class="tab" border="0" cellpadding="0" cellspacing="0">
+                   <tr>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td width="110" class="tit">用户名：</td>
+                      <td width="225" colspan="2"><input name="username" type=text class=field id="username" /></td>
+                  </tr>
+                  <tr>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                      <td class="tit">密　码：</td>
+                      <td colspan="2"><input type=password name="password" id="password"/>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+
+                      <td colspan="3" align="center">
+                      <button class="btn btn-primary" style="font-family:Microsoft YaHei" type="submit" id="submit">登&nbsp;&nbsp;&nbsp;录</button>                                        
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><img src="img/index_dlbot.jpg"/></td>
+                        </tr>
+                    </table>
+          </div>
+          </div>
+          <div class="fgx" style="clear:both;">
+              <p class="banquan">
+              北京邮电大学15级计算机学院
+              </p>
+          </div>
+      </div>
+
+</body>
+</html>
