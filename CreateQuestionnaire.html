@@ -53,17 +53,30 @@
             val1 = input1.val();
             quess[i].set = val1;
             i++;
-        })
-        
+        });
+      
         $.ajax({
-            
-        })
+            type:'post',
+            url:'CreateQuestionnaireHandler.php',
+            data:{
+                questionnaireTitle:$("#title").val(),
+                questions:quess,
+            },
+            dataType:'json',
+            async:false,
+            success:function(json,status){
+                alert(json+'\n'+status);
+            },
+            error:function(XMLHttpRequest, status, errorThrown){
+                alert('失败，请重试\n'+'状态：'+status);
+            },
+        });
     }
 </script> 
 <body> 
-    <form action="" method="GET" name="frm">
-        <p>问卷标题<input name="title" type="text" /></p>
-        <p>先填写问题，然后选择问题类型，如果类型是单选活着多选就在第二个文本框里面输入选项，用单引号和逗号隔开，如'高','矮','胖','瘦'一定要用英文标点！</p>
+    <form action="#" method="POST" name="frm">
+        <p>问卷标题<input id="title" type="text" /></p>
+        <p>先填写问题，然后选择问题类型，如果类型是单选或者多选就在第二个文本框里面输入选项，用单引号和逗号隔开，如'高','矮','胖','瘦'一定要用英文标点！</p>
         <div id="add">
             <div id="question0" style="display: none;" sample="true">
                 <input name="newcolum" type="text" value="" />
@@ -78,8 +91,9 @@
             </div>
         </div>
         <input type="button" value="增加问题" onclick="addQuestion()" />
-        <input type="submit" onclick="submitQuestionnaire()" />
+        
         <input type="reset" onclick="resetQuestionnaire()" /> 
     </form> 
+    <button onclick="submitQuestionnaire()" >提交</button>
 </body> 
 </html>
