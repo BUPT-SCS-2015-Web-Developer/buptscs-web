@@ -32,6 +32,49 @@
         newquestion.attr("sample","false");
         TemO.append(newquestion);
     }
+    function changeType(typeSelector){
+        if (typeSelector.val() == "checkbox" || typeSelector.val() == "radio"){
+            var setInput = '<span onclick="changeOption($(this))"><input name="newset" type="text" value="添加选项内容" disabled /></span>';
+            typeSelector.after(setInput);
+        }
+    }
+    function changeOption(inputSpan){
+        var dialog = $("<div></div>");
+        dialog.id = "dialog";
+        dialog.css({
+            "height":"100px",
+            "width":"180px",
+            "position":"absolute",
+            "margin":"auto",
+            "top":"0",
+            "left":"0",
+            "bottom":"0",
+            "right":"0",
+            "background":"#f2f2f2"
+        });
+        dialog.append("<p>请输入选项</p>");
+        dialog.append("<input></input>");
+        dialog.append("<button>好</button>");
+        dialog.append("<button>取消</button>");
+        
+        function contentHeight(dialogFrame){
+            var h=0;
+            dialogFrame.children().each(function(){
+                h += $(this).outerHeight(true);
+            });
+            return h;
+        }        
+        $("#add").append(dialog);
+        dialog.css("height",contentHeight(dialog)+"px");
+        
+        dialog.click(function(){
+            inputSpan.children("[name='newset']").val("1");
+            //dialog.css("height","200px");
+            dialog.remove();
+        });
+
+    }
+    
     function resetQuestionnaire(){
         var questions=$("#add").childNodes;
         for (i=2;i<questions.length;) {
@@ -80,14 +123,13 @@
         <div id="add">
             <div id="question0" style="display: none;" sample="true">
                 <input name="newcolum" type="text" value="" />
-                <select name="newtype">
+                <select name="newtype" onchange="changeType($(this))">
                     <option value="text">文本</option>
                     <option value="checkbox">多选</option>
                     <option value="radio">单选</option>
                     <option value="file">文件</option>
                     <option value="password">密码</option>
                 </select>
-                <input name="newset" type="text" value="" />
             </div>
         </div>
         <input type="button" value="增加问题" onclick="addQuestion()" />

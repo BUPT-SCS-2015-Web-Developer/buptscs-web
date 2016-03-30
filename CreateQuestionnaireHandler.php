@@ -25,7 +25,7 @@
   $insert_result = $db->query($insert_query);
   
   //CREATE TABLE `Questionnaire`.`asdfg` ( `gggg` VARCHAR NOT NULL , `sdffg` SET('aaaa','ssss','dddd','ffff','gggg') NOT NULL , `qwerty` ENUM('fff','egg','hah') NOT NULL ) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
-  $insert_query = "CREATE TABLE `Questionnaire`.`$table_id` (";
+  $insert_query = "CREATE TABLE `Questionnaire`.`$table_id` ( `User_ID` VARCHAR(10) NOT NULL ,";
   echo $insert_query;
   $question = $_POST['questions'];
   for ($i=1; $i < count($question); $i++) { 
@@ -44,5 +44,5 @@
   $insert_query = rtrim($insert_query,',');
   $insert_query .= ") ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;";
   $insert_result = $db->query($insert_query);
-  echo json_encode($insert_query);
+  echo json_encode(Sucseeded);
 ?>
