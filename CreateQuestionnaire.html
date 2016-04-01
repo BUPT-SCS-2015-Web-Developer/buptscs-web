@@ -52,27 +52,38 @@
             "right":"0",
             "background":"#f2f2f2"
         });
-        dialog.append("<p>请输入选项</p>");
-        dialog.append("<input></input>");
-        dialog.append("<button>好</button>");
-        dialog.append("<button>取消</button>");
-        
+        dialog.append('<p>请输入选项</p>');
+        dialog.append('<span id="addOption"><input name="newset" type="text" value="增加选项" disabled /></span>');
+        dialog.append('<button id="submitDialog">好</button>');
+        dialog.append('<button id="deleteDialog">取消</button>');
+         
+         
         function contentHeight(dialogFrame){
             var h=0;
             dialogFrame.children().each(function(){
                 h += $(this).outerHeight(true);
             });
             return h;
-        }        
+        } 
         $("#add").append(dialog);
         dialog.css("height",contentHeight(dialog)+"px");
         
-        dialog.click(function(){
-            inputSpan.children("[name='newset']").val("1");
-            //dialog.css("height","200px");
+        $("#addOption").click(function(){
+            $(this).before("<input></input>");
+            dialog.css("height",contentHeight(dialog)+"px");
+        });
+        $("#submitDialog").click(function(){
+            var optionContent = "";
+            $(this).prevUntil("p").each(function(){
+                optionContent += "'" + $(this).val() + "',";
+            });
+            optionContent = optionContent.substr(3,optionContent.length-4);
+            inputSpan.children("input").val(optionContent);
             dialog.remove();
         });
-
+        $("#deleteDialog").click(function(){
+            dialog.remove();
+        });
     }
     
     function resetQuestionnaire(){
