@@ -385,7 +385,7 @@ function Uncheck(j){
       <tr>
         <td id ="1" height="35" align="center" onClick="changeColor(1)" href="#Info_1" data-toggle="tab">&nbsp;<a href="#Info_1" data-toggle="tab" ><font size="4"><strong>信息采集</strong></font></a>&nbsp;</td>
         <td align="center"><img src="img/menu_02.gif" width="2" height="35" /></td>
-        <td id ="2" align="center" onClick="changeColor(2)" href="#Info_2" data-toggle="tab"><a href="#Info_2" data-toggle="tab"><font size="4"><strong>调查问卷</strong></font></a></td>
+        <td id ="2" align="center" onClick="changeColor(2)" href="#Info_调查问卷" data-toggle="tab"><a href="#Info_调查问卷" data-toggle="tab"><font size="4"><strong>调查问卷</strong></font></a></td>
         <td align="center"><img src="img/menu_02.gif" width="2" height="35" /></td>
         <td id ="3" align="center" onClick="changeColor(3)" href="#Info_3" data-toggle="tab"><a href="#Info_3" data-toggle="tab"><font size="4"><strong>问题反馈</strong></font></a></td>
         <td align="center"><img src="img/menu_02.gif" width="2" height="35" /></td>
@@ -519,8 +519,8 @@ function Uncheck(j){
 </div>
 </div>
 
-
-<div  id="Info_2" align="center" class="tab-pane fade bg1">
+<!-- 此为第二页的div-->
+<div  id="Info_调查问卷" align="center" class="tab-pane fade bg1">
 <div  class="bg2">
     <img class="img img-responsive  img-rounded" alt="Responsive image" src="img/search.png" /><br><br><br>
      <div class="div" align="left"><br><br>
@@ -626,6 +626,7 @@ function Uncheck(j){
 </div>
 </div>
 
+<!-- 此为第三页的div-->
 <div  id="Info_3" align="center" class="tab-pane fade bg1">
 <div class="bg2">
      <img class="img img-responsive  img-rounded" alt="Responsive image" src="img/question.png" width="415" height="116"/><br><br><br>
@@ -645,7 +646,7 @@ function Uncheck(j){
 </div>
 </div>
 
-
+<!-- 此为第四页的div-->
 <div  id="Info_4" align="center" class="tab-pane fade bg1">
 <div class="bg2">
     <img class="img img-responsive  img-rounded" alt="Responsive image" src="img/reason.png" width="415" height="116"/><br><br><br><br>

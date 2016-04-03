@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html > 
+<head> 
+    <title>创建问卷</title> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--  确保适当的绘制和触屏缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/bootstrap.min.js"></script>
+<!-- 时间选择器  文件 -->
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+</head> 
+<script language="javascript"> 
+    var idgenerator = 1;
+    function addQuestion(){
+        var TemO=$("#add");
+        var newquestion = $("#question0").clone();
+        newquestion.css("display","");
+        newquestion.attr("id","question"+idgenerator++);
+        newquestion.attr("sample","false");
+        TemO.append(newquestion);
+    }
+    function deleteQuestion(questionDiv) {
+        questionDiv.remove();
+    }
+    function changeType(typeSelector){
+        if (typeSelector.val() == "checkbox" || typeSelector.val() == "radio"){
+            var setInput = '<span onclick="changeOption($(this))"><input name="newset" type="text" value="添加选项内容" disabled /></span>';
+            typeSelector.after(setInput);
+        }
+    }
+    function changeOption(inputSpan){
+        var dialog = $("<div></div>");
+        dialog.id = "dialog";
+        dialog.css({
+            "height":"100px",
+            "width":"180px",
+            "position":"absolute",
+            "margin":"auto",
+            "top":"0",
+            "left":"0",
+            "bottom":"0",
+            "right":"0",
+            "background":"#f2f2f2"
+        });
+        dialog.append('<p>请输入选项</p>');
+        dialog.append('<span id="addOption"><input name="newset" type="text" value="增加选项" disabled /></span>');
+        dialog.append('<button id="submitDialog">好</button>');
+        dialog.append('<button id="deleteDialog">取消</button>');
+         
+         
+        function contentHeight(dialogFrame){
+            var h=0;
+            dialogFrame.children().each(function(){
+                h += $(this).outerHeight(true);
+            });
+            return h;
+        } 
+        $("#add").append(dialog);
+        dialog.css("height",contentHeight(dialog)+"px");
+        
+        $("#addOption").click(function(){
+            $(this).before("<input></input>");
+            dialog.css("height",contentHeight(dialog)+"px");
+        });
+        $("#submitDialog").click(function(){
+            var optionContent = "";
+            $(this).prevUntil("p").each(function(){
+                optionContent += "'" + $(this).val() + "',";
+            });
+            optionContent = optionContent.substr(3,optionContent.length-4);
+            inputSpan.children("input").val(optionContent);
+            dialog.remove();
+        });
+        $("#deleteDialog").click(function(){
+            dialog.remove();
+        });
+    }
+    
+    function resetQuestionnaire(){
+        var questions=$("#add").childNodes;
+        for (i=2;i<questions.length;) {
+            document.getElementById("add").removeChild(questions[i]);
+        }
+    }
+    function submitQuestionnaire(){
+        var quess = new Array();
+        var i=1;
+        $("#add").children("[sample='false']").each(function(){
+            quess[i] = new Object();
+            var input1 = $(this).children("[name='newcolum']");
+            var val1 = input1.val();
+            quess[i].colum = val1;
+            input1 = $(this).children("[name='newtype']");
+            val1 = input1.val();
+            quess[i].type = val1;
+            input1 = $(this).children("[name='newset']");
+            val1 = input1.val();
+            quess[i].set = val1;
+            i++;
+        });
+      
+        $.ajax({
+            type:'post',
+            url:'CreateQuestionnaireHandler.php',
+            data:{
+                questionnaireTitle:$("#title").val(),
+                questions:quess,
+            },
+            dataType:'json',
+            async:false,
+            success:function(json,status){
+                alert(json+'\n'+status);
+            },
+            error:function(XMLHttpRequest, status, errorThrown){
+                alert('失败，请重试\n'+'状态：'+status);
+            },
+        });
+    }
+</script> 
+<body> 
+    <form action="#" method="POST" name="frm">
+        <p>问卷标题<input id="title" type="text" /></p>
+        <p id="dueDate">截止日期</p>
+        
+        <script>
+            selectYear = $('<delect></select>');
+            var i = 0;
+            for (i = 2016; i < 2019; i++) {
+                selectYear.append('<option value="' + i + '">' + i + '年</option>');
+            }
+            $("#dueDate").append(selectYear);
+        </script>
+        
+        
+        <div id="add">
+            <div id="question0" style="display: none;" sample="true">
+                <button type="button" onclick="deleteQuestion($(this).parent())">删除</button>
+                <input name="newcolum" type="text" value="" />
+                <select name="newtype" onchange="changeType($(this))">
+                    <option value="text">文本</option>
+                    <option value="checkbox">多选</option>
+                    <option value="radio">单选</option>
+                    <option value="file">文件</option>
+                    <option value="password">密码</option>
+                </select>
+            </div>
+        </div>
+        <input type="button" value="增加问题" onclick="addQuestion()" />
+        
+        <input type="reset" onclick="resetQuestionnaire()" /> 
+    </form> 
+    <button onclick="submitQuestionnaire()" >提交</button>
+</body> 
+</html>
