@@ -20,8 +20,9 @@
   $table_title = $_POST['questionnaireTitle'];
   $table_create_user = $username;
   $table_filled = 0; 
+  $table_close_date = $_POST['closeDate'];
   $insert_query = "INSERT INTO `QuestionnaireInfo` (`ID`, `Title`, `CreateUser`, `CreateDate`, `CloseTime`, `Important`, `Filled`) 
-                VALUES ('$table_id', '$table_title', '$table_create_user', now(), CURRENT_TIMESTAMP, '0', '$table_filled')";
+                VALUES ('$table_id', '$table_title', '$table_create_user', now(), '$table_close_date', '0', '$table_filled')";
   $insert_result = $db->query($insert_query);
   
   //CREATE TABLE `Questionnaire`.`asdfg` ( `gggg` VARCHAR NOT NULL , `sdffg` SET('aaaa','ssss','dddd','ffff','gggg') NOT NULL , `qwerty` ENUM('fff','egg','hah') NOT NULL ) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;

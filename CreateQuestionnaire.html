@@ -120,12 +120,15 @@
             quess[i].set = val1;
             i++;
         });
-      
+        var dueDate = "";//格式：2016-04-11 00:00:00
+        dueDate = $("#dueDate_Year").val() + '-' + $("#dueDate_Month").val() + '-' + $("#dueDate_Day").val() + " 00:00:00";
+        
         $.ajax({
             type:'post',
             url:'CreateQuestionnaireHandler.php',
             data:{
                 questionnaireTitle:$("#title").val(),
+                closeDate:dueDate,
                 questions:quess,
             },
             dataType:'json',
@@ -145,12 +148,22 @@
         <p id="dueDate">截止日期</p>
         
         <script>
-            selectYear = $('<delect></select>');
+            var selectYear = $('<select id="dueDate_Year"></select>');
             var i = 0;
             for (i = 2016; i < 2019; i++) {
                 selectYear.append('<option value="' + i + '">' + i + '年</option>');
             }
             $("#dueDate").append(selectYear);
+            var selectMonth = $('<select id="dueDate_Month"></select>');
+            for (i = 1; i < 12; i++) {
+                selectMonth.append('<option value="' + i + '">' + i + '月</option>');
+            }
+            $("#dueDate").append(selectMonth);
+            var selectDay = $('<select id="dueDate_Day"></select>');
+            for (i = 1; i < 32; i++) {
+                selectDay.append('<option value="' + i + '">' + i + '日</option>');
+            }
+            $("#dueDate").append(selectDay);
         </script>
         
         <div id="question0" style="display: none;" sample="true">
