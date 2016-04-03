@@ -91,10 +91,9 @@
     }
     
     function resetQuestionnaire(){
-        var questions=$("#add").childNodes;
-        for (i=2;i<questions.length;) {
-            document.getElementById("add").removeChild(questions[i]);
-        }
+        $("#add").children().each(function(){
+            $(this).remove();
+        });
     }
     function submitQuestionnaire(){
         var quess = new Array();
@@ -145,24 +144,22 @@
             $("#dueDate").append(selectYear);
         </script>
         
-        
-        <div id="add">
-            <div id="question0" style="display: none;" sample="true">
-                <button type="button" onclick="deleteQuestion($(this).parent())">删除</button>
-                <input name="newcolum" type="text" value="" />
-                <select name="newtype" onchange="changeType($(this))">
-                    <option value="text">文本</option>
-                    <option value="checkbox">多选</option>
-                    <option value="radio">单选</option>
-                    <option value="file">文件</option>
-                    <option value="password">密码</option>
-                </select>
-            </div>
+        <div id="question0" style="display: none;" sample="true">
+            <button type="button" onclick="deleteQuestion($(this).parent())">删除</button>
+            <input name="newcolum" type="text" value="" />
+            <select name="newtype" onchange="changeType($(this))">
+                <option value="text">文本</option>
+                <option value="checkbox">多选</option>
+                <option value="radio">单选</option>
+                <option value="file">文件</option>
+                <option value="password">密码</option>
+            </select>
         </div>
+        <div id="add"></div>
         <input type="button" value="增加问题" onclick="addQuestion()" />
         
-        <input type="reset" onclick="resetQuestionnaire()" /> 
+        <input type="button" value="重做" onclick="resetQuestionnaire()" /> 
+        <input type="button" value="发布" onclick="submitQuestionnaire()" />
     </form> 
-    <button onclick="submitQuestionnaire()" >提交</button>
 </body> 
 </html>
