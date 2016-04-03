@@ -40,11 +40,11 @@
 					$_SESSION['username'] = $username;
 					$_SESSION['type'] = $type;
 					if ($type == "student")
-				
-					echo json_encode(array('url'=>'info.php'));
+						echo json_encode(array('url'=>'inschool.php'));
+					elseif($type == "admin")
+						echo json_encode(array('url'=>'admin.php'));
 					else
-					echo json_encode(array('url'=>'teacher.php'));
-
+						echo json_encode(array('url'=>'/teacher/'));
 				}
 				else
 				{
