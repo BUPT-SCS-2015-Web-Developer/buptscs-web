@@ -1,377 +1,15 @@
-<?php
-
-  session_start();
-
-  if(!isset($_SESSION['username'])){
-    exit('illegal access!');
-  }
-
-
-  $username = $_SESSION['username'];
-
-  include_once "lib/shared/ez_sql_core.php";
-  include_once "lib/mysql/ez_sql_mysql.php";
-  include_once "db_config.php";
-
-  $db = new ezSQL_mysql($db_user, $db_password, $db_database, $db_host);
-  $db->query("set names 'utf8'");
-
-  $get_user_query = "SELECT * FROM massage WHERE student_ID = '$username'";
-  $user = $db->get_row("$get_user_query");
-
-
-?>
+<?php include('session.php');?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-cn">
+
 <head>
-<title>BUPT 2015 SCS Information System</title>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!--  确保适当的绘制和触屏缩放 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="css/bootstrap.css">
-
-<!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="js/jquery.min.js"></script>
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="js/bootstrap.min.js"></script>
-
-<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-
-<style type="text/css">  
-input.text{text-align:center;padding:2px 5px;width:40px;border:0px;border-bottom:#000000 1px solid;}  
-input.textname{text-align:center;padding:2px 5px;width:180px;border:0px;border-bottom:#000000 1px solid;height:20px}
-input.textname2{text-align:center;padding:2px 5px;width:360px;border:0px;border-bottom:#000000 1px solid;height:20px}
-.thheight {height :40px; vertical-align:middle;}
-.selector{ font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei" } 
-.banquan{color:#959595;text-align:center; padding-top:15px; font-size:12px; line-height:18px; }
-.fgx{width:790px;background-image:url(img/index_fgx.jpg); background-repeat:no-repeat; background-position:50% 0%; text-align:center;z-index:-1;margin:0px auto; font-size:120px; line-height:20px;  }
-
-</style> 
-
-<style type="text/css">
-a:link {color: #FFFFFF} /* 未访问的链接 */
-a:visited {color: #FFFFFF} /* 已访问的链接 */
-a:hover {color: #DAA520} /* 鼠标移动到链接上 */
-a:active {color: #FF6347} /* 选定的链接 */
-
-</style>
-<style type="text/css">
-.bg1{
-  position:absolute;
-  width:100%;
-  height:900px;
-  top:320px;
-  z-index:-1;
-}
-.bg2{
-  width:960px;
-  height:823px;
-  z-index:-1;
-  margin:0px auto;
-  background-image: url(img/10.jpg);
-  background-repeat: no-repeat;
-}
-.div{
-  width:450px;
-  height:auto;
-  z-index:-1;
-  margin-left:420px;
-  margin-right: 0px;
-}
-.img{
-  width:415px;
-  height:116px;
-  margin-left:490px;
-  margin-right:auto;
-}
-
-
-</style>
-
-<script type="text/javascript">
-
-      $(document).ready(function(){
-        $('#submit1').click(function(){
-         var finish = true;
-         $("#Info_1 input").each(function(){
-              //alert("22")
-            if($(this).val() == ''){
-              //alert('11')
-              finish = false;
-              return;
-            }
-          });
-
-          if(!finish){
-            alert('填写不完整,请检查!');
-            return;
-          }
-          //alert("test");
-
-          $.ajax({
-            type:'post',
-            url:'saveInfo1.php',
-            data:{
-              building:$('#building').val(),
-              room:$('#room').val(),
-              phone:$('#phone').val(),
-              Email:$('#Email').val(),
-              bank:$('#bank').val(),
-              QQ:$('#QQ').val(),
-              H_address:$('#H_address').val(),
-              height:$('#height').val(),
-              weight:$('#weight').val(),
-              shoes:$('#shoes').val(),
-              station:$('#station').val(),
-              H_phone:$('#H_phone').val(),
-              father:$('#father').val(),
-              F_phone:$('#F_phone').val(),
-              F_work:$('#F_work').val(),
-              mother:$('#mother').val(),
-              M_phone:$('#M_phone').val(),
-              M_work:$('#M_work').val(),
-              contact:$('#contact').val(),
-              C_phone:$('#C_phone').val(),
-              C_work:$('#C_work').val(),
-              apply:$('#apply').val(),
-            },
-            dataType:'json',
-            success:function(json){
-              alert(json.insert);
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-                        alert('登陆失败，请重试');
-            }
-          });
-        });
-      });
-
- 
-      $(document).ready(function(){
-        $('#submit2').click(function(){
-          var finish = true;
-         for(var j = 1; j < 9; j ++ )
-          {
-              var i = $("[name="+j+"]:radio:checked").length;
-              if(i<1){
-                  //alert($('#select'+j).val());
-                  if($('#select'+j).val()){
-                     continue;
-                   }
-                  else{
-                     finish = false;
-                     break;
-                  }
-              }
-          }
-
-          
-
-          if(!finish){
-            alert('填写不完整,请检查!');
-            return;
-          }
-         // alert($('#text1').val());
-         var data1,data2,data3,data4,data5,data6,data7,data8;
-
-         if($('#select1').val() == '')
-             data1=$('input:radio[name="1"]:checked').val();
-         else
-             data1=$('#select1').val();
-
-         if($('#select2').val() == '')
-       
-             data2=$('input:radio[name="2"]:checked').val();
-         else     
-             data2=$('#select2').val(); 
-         if($('#select3').val() == '')
-       
-             data3=$('input:radio[name="3"]:checked').val();
-         else     
-             data3=$('#select3').val(); 
-         if($('#select4').val() == '')
-       
-             data4=$('input:radio[name="4"]:checked').val();
-         else     
-             data4=$('#select4').val(); 
-		
-		if($('#select5').val() == '')
-       
-             data5=$('input:radio[name="5"]:checked').val();
-         else     
-             data5=$('#select5').val(); 
-		if($('#select6').val() == '')
-       
-             data6=$('input:radio[name="6"]:checked').val();
-         else     
-             data6=$('#select6').val(); 
-         if($('#select7').val() == '')
-       
-             data7=$('input:radio[name="7"]:checked').val();
-         else     
-             data7=$('#select7').val(); 
-         if($('#select8').val() == '')
-       
-             data8=$('input:radio[name="8"]:checked').val();
-         else     
-             data8=$('#select8').val(); 
-        
-
-
-          $.ajax({
-            type:'post',
-            url:'saveInfo2.php',
-            data:{
-              
-              answer1:data1,
-             
-              answer2:data2,
-
-              answer3:data3,
-             
-              answer4:data4,
-             
-              answer5:data5,
-
-              answer6:data6,
-             
-              answer7:data7,
-
-              answer8:data8,
-             
-             
-            },
-            dataType:'json',
-            success:function(json){
-              alert(json.insert);
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-                        alert('登陆失败，请重试');
-            }
-          });
-        });
-      });
-
-function Uncheck(j){
-             //alert(j)
-             $("input:radio[name="+j+"]").each(function(){
-              //alert($(this).checked);
-              $(this).attr('checked',false);
-         });
-        }
-
-
-      $(document).ready(function(){
-        $('#submit3').click(function(){
-          var finish = true;
-          $("#Info_3 textarea").each(function(){
-            if($(this).val() == ''){
-              finish = false;
-              return;
-            }
-          });
-
-          if(!finish){
-            alert('填写不完整,请检查!');
-            return;
-          }
-          //alert($('#text2').val());
-          $.ajax({
-            type:'post',
-            url:'saveInfo3.php',
-            data:{
-              introduce:$('#text2').val(),
-            },
-            dataType:'json',
-            success:function(json){
-              alert(json.insert);
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-                        alert('登陆失败，请重试');
-            }
-          });
-        });
-      });
-
-
-      $(document).ready(function(){
-        $('#submit4').click(function(){
-          var finish = true;
-          $("#Info_4 textarea").each(function(){
-            if($(this).val() == ''){
-              finish = false;
-              return;
-            }
-          });
-
-          if(!finish){
-            alert('填写不完整,请检查!');
-            return;
-          }
-           //alert($('#time').val());
-          $.ajax({
-            type:'post',
-            url:'leave.php',
-            data:{
-              time:$('#time').val(),
-              reason:$('#text3').val(),
-            },
-            dataType:'json',
-            success:function(json){
-              alert(json.insert);
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-                        alert('登陆失败，请重试');
-            }
-          });
-        });
-      });
-
-        //回车时，默认是登陆
-       function KeyDown(){
-       if(window.event.keyCode == 13){
-        if (document.getElementById("submit")!=null){
-                           document.getElementById("submit").click();
-         }
-       }
-       }
-    
-
-      function changeColor(id){
-
-        var obj=document.getElementById(id);
-        var bgColor = "#0000FF";
-        obj.style.backgroundColor = bgColor;
-        for (var i=1;i<=5;i++)
-        {
-            if (i==id)
-            {
-              continue;
-            }
-            else
-            {
-              obj=document.getElementById(i);
-              obj.style.backgroundColor = "transparent";
-            }
-        }
-        if(id==5)
-        {
-           //alert('lalala');
-           window.location.href="./logout.php";
-        }
-      }
-</script>
-
+    <?php $title="问卷";include('head.php');?>
+    <link rel="stylesheet" href="css/info.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" media="screen">
+    <script src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script src="js/info.js"></script>
 </head>
+<<<<<<< HEAD
 
 <body class="selector">
 <div align="center">
@@ -655,43 +293,119 @@ function Uncheck(j){
           <font size="3"><label>&nbsp回校时间：</label></font>
           <input  class="textname" type="text" value="" id ='time' name='time' readonly>
           <span class="add-on"><i class="icon-th"></i></span>
+=======
+<body>
+    <?php include('nav.php');include('header.php');?>
+    <div class="container wj">
+        <h2><i class="fa fa-fw fa-lg fa-pencil-square-o"></i>调查问卷-20160331</h2>
+        <hr>
+        <form role="form">
+            <div class="quesion">Q1.你的年级</div>
+            <div class="form-group">
+                <select id="choose1" class="form-control">
+                    <option value="-1">请选择</option>
+                    <option value="2012级本科">2012级本科</option>
+                    <option value="2013级本科">2013级本科</option>
+                    <option value="2014级本科">2014级本科</option>
+                    <option value="2015级本科">2015级本科</option>
+                    <option value="2013级硕士">2013级硕士</option>
+                    <option value="2014级硕士">2014级硕士</option>
+                    <option value="2015级硕士">2015级硕士</option>
+                    <option value="博士">博士</option>
+                </select>
+            </div>
+            <p class="fieldset"><span id="error1" class="error-info">这一栏没选哦</span></p>
+        </form>
+        <div class="quesion">Q2.父亲职业</div>
+        <form role="form">
+            <div class="form-group">
+                <select id="choose2" class="form-control">
+                    <option value="-1">请选择</option>
+                    <option value="医生">医生</option>
+                    <option value="国企或事业单位">国企或事业单位</option>
+                    <option value="公务员">公务员</option>
+                    <option value="私企">私企</option>
+                    <option value="中小学教师">中小学教师</option>
+                    <option value="大学教师">大学教师</option>
+                    <option value="个体工商业">个体工商业</option>
+                    <option value="农民">农民</option>
+                    <option value="自由职业者">自由职业者</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <p class="fieldset"><span id="error2" class="error-info">这一栏没选哦</span></p>
+        </form>
+        <div class="quesion">Q3.母亲职业</div>
+        <form role="form">
+            <div class="form-group">
+                <select id="choose3" class="form-control">
+                    <option value="-1">请选择</option>
+                    <option value="医生">医生</option>
+                    <option value="国企或事业单位">国企或事业单位</option>
+                    <option value="公务员">公务员</option>
+                    <option value="私企">私企</option>
+                    <option value="中小学教师">中小学教师</option>
+                    <option value="大学教师">大学教师</option>
+                    <option value="个体工商业">个体工商业</option>
+                    <option value="农民">农民</option>
+                    <option value="自由职业者">自由职业者</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <p class="fieldset"><span id="error3" class="error-info">这一栏没选哦</span></p>
+        </form>
+        <form role="form">
+            <div id="question4" class="form-group">
+                <div class="quesion">Q4.是否单亲</div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="inlineRadio1" value="option1" name="choose4">
+                    <label for="inlineRadio1"> 是 </label>
+                </div>
+                <div class="radio radio-inline">
+                    <input type="radio" id="inlineRadio2" value="option2" name="choose4">
+                    <label for="inlineRadio2"> 否 </label>
+                </div>
+            </div>
+            <p class="fieldset"><span id="error4" class="error-info">这一栏没选哦</span></p>
+        </form>
+        <form role="form">
+            <div id="question5" class="form-group">
+                <div class="quesion">Q5.和家长沟通频率</div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="inlineRadio3" value="option2" name="choose5">
+                    <label for="inlineRadio3"> 每天 </label>
+                </div>
+                <div class="radio radio-inline">
+                    <input type="radio" id="inlineRadio4" value="option2" name="choose5">
+                    <label for="inlineRadio4"> 每星期 </label>
+                </div>
+                <div class="radio radio-inline">
+                    <input type="radio" id="inlineRadio5" value="option2" name="choose5">
+                    <label for="inlineRadio5"> 每个月 </label>
+                </div>
+            </div>
+            <p class="fieldset"><span id="error5" class="error-info">这一栏没选哦</span></p>
+        </form>
+        <form role="form">
+            <div id="question4" class="form-group">
+                <div class="quesion">Q6.是否有兄弟姐妹</div>
+                <div class="radio radio-info radio-inline">
+                    <input type="radio" id="inlineRadio6" value="option1" name="choose6">
+                    <label for="inlineRadio6"> 是 </label>
+                </div>
+                <div class="radio radio-inline">
+                    <input type="radio" id="inlineRadio7" value="option2" name="choose6">
+                    <label for="inlineRadio7"> 否 </label>
+                </div>
+            </div>
+            <p class="fieldset"><span id="error6" class="error-info">这一栏没选哦</span></p>
+        </form>
+        <p class="fieldset">
+            <input class="submit pull-right" type="button" id="submit" value="提交">
+        </p>
+>>>>>>> TEMP_F
     </div>
-
-     <div class="div" align="left"><font size="3"><label>&nbsp请假事由：</label></font></div>
-     <div class="div"><textarea name="content" id="text3" cols="65" rows="13"></textarea></div><br>
-
-     <div class="div" align="center">
-        <p><strong>注：请假事由中写明离校时间</strong></p><br>
-        <button class="btn btn-primary" style="font-family:Microsoft YaHei" type="submit" id='submit4'>请&nbsp&nbsp&nbsp假</button>
-     </div>
-     
-</div>
-
-<div class="fgx " style="clear:both;" width="815px">
-    <p class="banquan">
-        北京邮电大学15级计算机学院
-    </p>
-</div>
-</div>
-
-</div>
-
-<script type="text/javascript" src="js/jquery-1.11.3.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
-<script type="text/javascript">
-  $('.form_date').datetimepicker({
-        language:  'zh',
-        weekStart: 1,
-        todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 1,
-    forceParse: 0
-    });
-</script>
-
+    <?php include('footer.php');?>
 </body>
+
 </html>

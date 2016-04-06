@@ -1,1 +1,1 @@
-# buptscs-web
+# BUPTscs
