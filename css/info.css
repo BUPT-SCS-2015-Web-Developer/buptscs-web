@@ -8,8 +8,6 @@ form .error-info {
     padding: .8em;
     z-index: 2;
     color: #FFF;
-    font-size: 13px;
-    font-size: 0.8125rem;
     border-radius: 0.25em;
     /* prevent click and touch events */
     pointer-events: none;
