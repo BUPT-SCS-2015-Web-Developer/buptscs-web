@@ -2,7 +2,7 @@
 	session_start();
 
 	if(!isset($_SESSION['username'])){
-		exit('illegal access!');
+		exit('非法进入!');
 	}
 ?>
 
@@ -44,10 +44,10 @@
         $insert_result = $db->query($insert_query);
 
 	    if($insert_result){
-             echo json_encode(array('insert'=>'sucess'));
+             echo json_encode(array('insert'=>'请假成功~'));
     	}
     	else{
-         	 echo json_encode(array('insert'=>'fail'));
+         	 echo json_encode(array('insert'=>'人生好失败！请假也失败0.0'));
     	}
     }
     else{

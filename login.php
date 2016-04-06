@@ -1,54 +1,44 @@
-<?php
-	//check if legal
-	if(!isset($_POST['username']) || !isset($_POST['password']))
-	{
-		exit('illegal access!!');
-	}
+<!DOCTYPE html>
+<html lang="zh-cn">
 
-	//post data
-	$username = addslashes($_POST['username']);
-	//$password = MD5($_POST['password']);
-	$password = addslashes($_POST['password']);
+<head>
+    <?php $title="登录";include('head.php');?>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
+</head>
 
+<body>
+    <?php include('nav.php');include('header.php');?>
+    <div class="container">
+        <div id="login">
+            <form class="login-form">
+                <span id="login-info" class="login-error-message">0.0 登录失败，重试一发吧！</span>
+                <p class="fieldset">
+                    <label class="username" for="username"><i class="fa fa-user fa-fw"></i></label>
+                    <input class="full-width has-padding has-border" id="username" type="username" placeholder="2015211457">
+                    <span id="erroru" class="error-message">学号不能为空！</span>
+                </p>
+                <p class="fieldset">
+                    <label class="password" for="password"><i class="fa fa-key fa-fw"></i></label>
+                    <input class="full-width has-padding has-border" id="password" type="password" placeholder="密码">
+                    <a href="#0" class="hide-password">显示</a>
+                    <span id="errorp" class="error-message">密码不能为空！</span>
+                </p>
+                <p class="fieldset">
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember-me" checked>
+                        <label for="remember-me">记住我</label>
+                        <p id="forget" href="">忘记密码</p>
+                        <span id="forget-inf" class="inf">请联系导员</span>
+                    </div>
+                </p>
+                <p class="fieldset">
+                    <input class="full-width" type="button" id="submit" value="登录">
+                </p>
+            </form>
+        </div>
+    </div>
+    <?php include('footer.php');?>
+</body>
 
-	//include ezSQL files
-	include_once "lib/shared/ez_sql_core.php";
-	include_once "lib/mysql/ez_sql_mysql.php";
-    include_once "db_config.php";
-
-    $db = new ezSQL_mysql($db_user, $db_password, $db_database, $db_host);
-	$db->query("set names 'utf8'");
-
-	$check_query = "SELECT * FROM user WHERE user_ID='$username'";
-	$user = $db->get_row($check_query);
-
-	if(!$user){
-		echo json_encode(array('msg'=>'查无此用户'));
-	}
-	else{
-				$sql_query = "SELECT * FROM user WHERE user_ID='$username' AND user_password='$password'";
-
-				$user = $db->get_row($sql_query);
-				$type = $user->user_type;
-				
-				if($user)
-				{
-				
-					session_start();
-
-				
-					$_SESSION['username'] = $username;
-					$_SESSION['type'] = $type;
-					if ($type == "student")
-						echo json_encode(array('url'=>'inschool.php'));
-					elseif($type == "admin")
-						echo json_encode(array('url'=>'admin.php'));
-					else
-						echo json_encode(array('url'=>'/teacher/'));
-				}
-				else
-				{
-					echo json_encode(array('msg'=>'用户名或密码输入错误，登陆失败'));
-				}
-		}	
-?>
+</html>
