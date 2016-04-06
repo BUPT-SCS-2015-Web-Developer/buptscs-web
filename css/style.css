@@ -1,0 +1,209 @@
+/* -------------------------------- 
+
+基本样式
+
+-------------------------------- */
+
+body {
+    min-width: 320px;
+    background: #f9f7f3;
+    color: #404d5b;
+    font-weight: 500;
+    font-family: "Segoe UI", Arial, "Microsoft YaHei", "Droid Sans", "FontAwesome", "PT Sans", sans-serif;
+    font-size: 16px;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+}
+
+/* -------------------------------- 
+
+表单设置
+
+-------------------------------- */
+
+input,
+textarea {
+    font-family: "Segoe UI", Arial, "Microsoft YaHei", "Droid Sans", "FontAwesome", "PT Sans", sans-serif;
+    font-size: 16px;
+    font-size: 1rem;
+}
+textarea.form-control 
+{
+    font-size: 16px;
+}
+input[type=submit],input[type=button] {
+    padding: 16px 0;
+    cursor: pointer;
+    background: #2f889a;
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
+input[type=submit]:hover {
+    background: #3599ae;
+    outline: none;
+}
+
+input[type=submit]:focus {
+    background: #257E90;
+    outline: none;
+}
+
+input {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    border-radius: 0.25em;
+}
+form select.form-control {
+    width:200px;
+}
+.fieldset {
+    position: relative;
+    margin: 1.4em 0;
+}
+
+.fieldset:first-child {
+    margin-top: 0;
+}
+
+.fieldset:last-child {
+    margin-bottom: 0;
+}
+
+.submit {
+    width: 160px;
+}
+.quesion{
+    font-size: 16px;
+    margin-left: -15px;
+    padding-bottom: 8px;
+    position: relative;
+    padding-left: 5px;
+}
+
+
+/* -------------------------------- 
+
+容器
+
+-------------------------------- */
+.wj{
+    background: #fff;
+        margin: 0px auto 10px auto;
+    border: 1px #dbdbdb solid;
+}
+.container {
+    padding: 80px;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+@media (max-width:500px) {
+    .container {
+        padding: 20px;
+    }
+
+}
+
+.article h1 {
+    padding-bottom: 30px;
+}
+
+.article {
+    padding-bottom: 30px;
+}
+
+.article li {
+    padding: 15px;
+}
+
+
+/* -------------------------------- 
+
+头部
+
+-------------------------------- */
+
+@media (max-width:900px) {
+    .header .title {
+        font-size: 70px;
+        padding: 70px 20px 0px 0px;
+    }
+    .title img {
+        width: 50px;
+    }
+
+}
+    .header{
+        width: 100%;
+    }
+.title {
+    padding: 40px 100px 0px;
+    font-size: 100px;
+    font-weight: 100;
+    text-align: center;
+    color: #5e5f63;
+    clear: both;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+.title img {
+    padding-bottom: 30px;
+}
+
+.subtitle {
+    color: #c1c3c4;
+    text-align: center;
+    font-size: 15px;
+}
+
+
+/* -------------------------------- 
+
+学号显示
+
+-------------------------------- */
+
+#user-info{
+    position: fixed;
+    top:30px;
+    right: 10px;
+}
+
+@media (max-width:768px) {
+    #user-info{
+        top:60px;
+    }
+}
+
+/* -------------------------------- 
+
+底部
+
+-------------------------------- */
+
+footer {
+    bottom: 0;
+    padding-top: 50px;
+    padding-bottom: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
