@@ -60,7 +60,7 @@
         
         //显示原有的选项
         var optionContent = inputSpan.children("input").val();
-        //optionContent.replace("'","");
+        optionContent = optionContent.replace(/'/g,"");
         var optionArray = optionContent.split(",");
         for (var optionIndex in optionArray) {
             dialog.append('<input name="newset" type="text" value="' + optionArray[optionIndex] + '" />');
