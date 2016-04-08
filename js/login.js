@@ -35,7 +35,7 @@ jQuery(document).ready(function($) {
         if (!ok) return;
         $.ajax({
             type: 'post',
-            url: '../reg.php',
+            url: 'reg.php',
             data: {
                 username: $('#username').val(),
                 password: $('#password').val()
