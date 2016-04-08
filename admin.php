@@ -30,7 +30,7 @@ javascript:window.history.forward(1);
 </script> 
 
 <?php
-
+//试一下
 	include_once "lib/shared/ez_sql_core.php";
   	include_once "lib/mysql/ez_sql_mysql.php";
     include_once "db_config.php";
