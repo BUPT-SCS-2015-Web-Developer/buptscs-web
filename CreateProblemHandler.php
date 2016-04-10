@@ -13,7 +13,7 @@
   include_once "lib/mysql/ez_sql_mysql.php";
   include_once "db_config.php";
   
-  $db = new ezSQL_mysql($qs_user, $qs_password, $qs_database, $db_host);//ÕâÀïÓ¦¸ÃÔõÃ´Ğ´°¡°¡°¡
+  $db = new ezSQL_mysql($qs_user, $qs_password, $qs_database, $db_host);//è¿™é‡Œåº”è¯¥æ€ä¹ˆå†™å•Šå•Šå•Š
   $db->query("set names 'utf8'");
   
   
@@ -29,7 +29,7 @@ mysql_select_db( 'problem', $conn );
                 VALUES ('$ID', '$TestTitle', '$CreateUser', '$LimitTime')";
   $result = mysql_query($sql,$conn);
 	if ($result){
-		echo "<script>alert('Ìí¼ÓĞÅÏ¢³É¹¦');</script>";
+		echo "<script>alert('æ·»åŠ ä¿¡æ¯æˆåŠŸ');</script>";
 	}
 
 
@@ -45,7 +45,7 @@ $sql = "CREATE TABLE competition$ID( ".
 	   "destination varchar(1000)); ";
 $result = mysql_query($sql,$conn);
 	if ($result){
-		echo "<script>alert('´´½¨ÌâÄ¿ĞÅÏ¢±í³É¹¦');</script>";
+		echo "<script>alert('åˆ›å»ºé¢˜ç›®ä¿¡æ¯è¡¨æˆåŠŸ');</script>";
 	}
 
 
@@ -55,7 +55,7 @@ $sql = "CREATE TABLE answer$ID( ".
        "answer varchar(15)); ";
 $result = mysql_query($sql,$conn);
 	if ($result){
-		echo "<script>alert('´´½¨Ñ§Éú´ğ°¸±í³É¹¦');</script>";
+		echo "<script>alert('åˆ›å»ºå­¦ç”Ÿç­”æ¡ˆè¡¨æˆåŠŸ');</script>";
 	}
 
 
@@ -67,7 +67,7 @@ $sql = "CREATE TABLE allscores$ID( ".
        "submit_time date); ";
 $result = mysql_query($sql,$conn);
 	if ($result){
-		echo "<script>alert('´´½¨·ÖÊı±í³É¹¦');</script>";
+		echo "<script>alert('åˆ›å»ºåˆ†æ•°è¡¨æˆåŠŸ');</script>";
 	}
 
 		
@@ -87,7 +87,7 @@ $result = mysql_query($sql,$conn);
                 VALUES ('$competition', '$option1', '$option2', '$option3', '$option4', '$answer', '$score', '$destination')";
 		$result = mysql_query($sql,$conn);
 		if ($result){
-			echo "<script>alert('ÌâÄ¿ĞÅÏ¢Ìí¼Ó³É¹¦');</script>";
+			echo "<script>alert('é¢˜ç›®ä¿¡æ¯æ·»åŠ æˆåŠŸ');</script>";
 		} 
 	}
 	
