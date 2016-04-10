@@ -33,10 +33,12 @@
         newproblem.attr("sample","false");
         TemO.append(newproblem);
     }
+	
     function deleteProblem(problemDiv) {
         problemDiv.remove();
     }
-    
+   
+   
    
     function resetProblem(){
         $("#add").children().each(function(){
@@ -67,7 +69,7 @@
             data:{
                 TestTitle:$("#title").val(),
                 LimitTime:$("#time").val(),
-				CreateUser:$("#createuser").val(),  
+				
             },
             dataType:'json',
             async:false,
@@ -82,44 +84,29 @@
 </script> 
 <body> 
     <form action="#" method="POST" name="frm">
-        <p>试卷标题<input id="title" type="text" /></p>
-        <p id="time">截止日期</p>
+        <p>试卷题目<input id="title" type="text" /></p>
+        <p>试卷用时<input id="time" type="text" placeholder="请填写分钟数"/></p>
         
-        <script>
-            var selectYear = $('<select id="dueDate_Year"></select>');
-            var i = 0;
-            for (i = 2016; i < 2019; i++) {
-                selectYear.append('<option value="' + i + '">' + i + '年</option>');
-            }
-            $("#dueDate").append(selectYear);
-            var selectMonth = $('<select id="dueDate_Month"></select>');
-            for (i = 1; i < 12; i++) {
-                selectMonth.append('<option value="' + i + '">' + i + '月</option>');
-            }
-            $("#dueDate").append(selectMonth);
-            var selectDay = $('<select id="dueDate_Day"></select>');
-            for (i = 1; i < 32; i++) {
-                selectDay.append('<option value="' + i + '">' + i + '日</option>');
-            }
-            $("#dueDate").append(selectDay);
-        </script>
-        
-        <div id="question0" style="display: none;" sample="true">
-            <button type="button" onclick="deleteQuestion($(this).parent())">删除</button>
-            <input name="newcolum" type="text" value="" />
-            <select name="newtype" onchange="changeType($(this))">
-                <option value="text">文本</option>
-                <option value="checkbox">多选</option>
-                <option value="radio">单选</option>
-                <option value="file">文件</option>
-                <option value="password">密码</option>
-            </select>
-        </div>
-        <div id="add"></div>
-        <input type="button" value="增加问题" onclick="addQuestion()" />
-        
-        <input type="button" value="重做" onclick="resetQuestionnaire()" /> 
-        <input type="button" value="发布" onclick="submitQuestionnaire()" />
+     
+    <div id="question0" style="display: none;" sample="true">
+	  <button type="button" onclick="deleteProblem($(this).parent())">删除</button>
+	  <p >上传图片<input type="file" name="pic" accept="image/gif" /></p>
+	  
+      <p >题目:<input type="text" name="textfield1" value="" /></p>
+      <p >选项一:<input type="text" name="textfield2"  value=""/></p>
+      <p >选项二:<input type="text" name="textfield3"  value=""/></p>
+      <p >选项三:<input type="text" name="textfield4"  value=""/></p>
+      <p >选项四:<input type="text" name="textfield5"  value=""/></p> 
+      <p >答案:<input type="text" name="textfield6"  placeholder="请填写大写字母"/> </p>
+	  <p >分值:<input type="text" name="textfield7"  placeholder="请填写阿拉伯数字"> </p>
+	  
+    </div>
+	
+    <div id="add"></div>
+		
+        <input type="button" value="增加问题" onclick="addProblem()" />
+        <input type="button" value="重置" onclick="resetProblem()" /> 
+        <input type="button" value="生成试卷" onclick="submitProblem()" />
     </form> 
 </body> 
 </html>
