@@ -34,10 +34,60 @@
         TemO.append(newproblem);
     }
 	
+	
+	
+	
+	
+	
+	var imgURL = "";  
+  
+	function getImgURL(node) {    
+		var imgURL = "";      
+		try{     
+			var file = null;  
+			if(node.files && node.files[0] ){  
+				file = node.files[0];   
+			}else if(node.files && node.files.item(0)) {                                  
+				file = node.files.item(0);     
+			}     
+        //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径  
+			try{  
+            //Firefox7.0   
+				imgURL =  file.getAsDataURL();    
+            //alert("//Firefox7.0"+imgRUL);                           
+			}catch(e){  
+            //Firefox8.0以上                                
+				imgRUL = window.URL.createObjectURL(file);  
+            //alert("//Firefox8.0以上"+imgRUL);  
+			}  
+		}catch(e){      //这里不知道怎么处理了，如果是遨游的话会报这个异常                   
+        //支持html5的浏览器,比如高版本的firefox、chrome、ie10  
+			if (node.files && node.files[0]) {                            
+				var reader = new FileReader();   
+				reader.onload = function (e) {                                        
+					imgURL = e.target.result;    
+				};  
+				reader.readAsDataURL(node.files[0]);   
+			}    
+		}  
+		//imgurl = imgURL;  
+		creatImg(imgRUL);  
+		return imgURL;  
+	}  
+         
+	function creatImg(imgRUL){   //根据指定URL创建一个Img对象  
+		var textHtml = "<img src='"+imgRUL+"'/>";  
+		$(".mark").after(textHtml);  
+	}  
+    
+	
+	
+	
+	
+	
     function deleteProblem(problemDiv) {
         problemDiv.remove();
     }
-   
    
    
     function resetProblem(){
@@ -45,7 +95,8 @@
             $(this).remove();
         });
     }
-	
+
+
     function submitProblem(){
         var pros = new Array();
         var i=1;
@@ -72,7 +123,9 @@
             input1 = $(this).find("[name='textfield7']");
 			val1 = input1.val();
             pros[i].score = val1;
-   
+			
+			pros[i].destination = imgURL;
+			
             i++;
         });
         
@@ -102,9 +155,7 @@
         
      
     <div id="question0" style="display: none;" sample="true">
-	  <button type="button" onclick="deleteProblem($(this).parent())">删除</button>
-	  <p >上传图片<input type="file" name="pic" accept="image/gif, image/*" /></p>
-	  
+	
       <p >题目:<input type="text" name="textfield1" value="" /></p>
       <p >选项一:<input type="text" name="textfield2"  value=""/></p>
       <p >选项二:<input type="text" name="textfield3"  value=""/></p>
@@ -112,13 +163,17 @@
       <p >选项四:<input type="text" name="textfield5"  value=""/></p> 
       <p >答案:<input type="text" name="textfield6"  placeholder="请填写大写字母"/> </p>
 	  <p >分值:<input type="text" name="textfield7"  placeholder="请填写阿拉伯数字"> </p>
+	  <p >上传图片:<input type="file" name="pic" accept="image/gif, image/*" onchange="getImgURL(this)"/></p>
+				   
+	  
+	  <button type="button" onclick="deleteProblem($(this).parent())">删除</button>
 	  
     </div>
 	
     <div id="add"></div>
-		
+		<br><br><br>
         <input type="button" value="增加问题" onclick="addProblem()" />
-        <input type="button" value="重置" onclick="resetProblem()" /> 
+        <input type="button" value="重置试卷" onclick="resetProblem()" /> 
         <input type="button" value="生成试卷" onclick="submitProblem()" />
     </form> 
 </body> 

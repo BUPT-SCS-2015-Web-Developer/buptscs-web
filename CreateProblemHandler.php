@@ -35,10 +35,10 @@ $sql = "CREATE TABLE competition$ID( ".
        "option1 varchar(100), ".
 	   "option2 varchar(100),".
 	   "option3 varchar(100), ".
-	   "option4 varchar(100),".
-	   "img         ,"//ͼƬ
+	   "option4 varchar(100),".          
        "answer varchar(5), ".
-       "score int(5); ";
+	   "score int(5), ".
+	   "destination varchar(1000); ";
 mysql_query( $sql, $conn );
 
 $sql = "CREATE TABLE answer$ID( ".
@@ -69,8 +69,9 @@ mysql_close($conn);
 	   $option4 = $problem[$i]['option4'];
 	   $answer = $problem[$i]['answer'];
 	   $score = $problem[$i]['score'];
-	   $insert_query = "INSERT INTO `competition` (`competition`, `option1`, `option2`, `option3`, `option4`, `answer`, `score`) 
-                VALUES ('$competition', '$option1', '$option2', '$option3', '$option4', '$answer', '$score')";
+	   $destination = $problem[$i]['destination'];
+	   $insert_query = "INSERT INTO `competition` (`competition`, `option1`, `option2`, `option3`, `option4`, `answer`, `score`, `destination`) 
+                VALUES ('$competition', '$option1', '$option2', '$option3', '$option4', '$answer', '$score', '$destination')";
        $insert_result = $db->query($insert_query); 
 	}
  
