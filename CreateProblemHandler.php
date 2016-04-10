@@ -41,8 +41,7 @@ $sql = "CREATE TABLE competition$ID( ".
 	   "option3 varchar(100), ".
 	   "option4 varchar(100),".          
        "answer varchar(5), ".
-	   "score int(5), ".
-	   "destination varchar(1000)); ";
+	   "score int(5)); ";
 $result = mysql_query($sql,$conn);
 	if ($result){
 		echo "<script>alert('创建题目信息表成功');</script>";
