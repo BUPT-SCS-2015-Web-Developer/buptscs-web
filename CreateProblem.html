@@ -47,19 +47,32 @@
     }
 	
     function submitProblem(){
-        var quess = new Array();
+        var pros = new Array();
         var i=1;
         $("#add").children("[sample='false']").each(function(){
-            quess[i] = new Object();
-            var input1 = $(this).children("[name='newcolum']");
+            pros[i] = new Object();
+            var input1 = $(this).children("[name='textfield1']");
             var val1 = input1.val();
-            quess[i].colum = val1;
-            input1 = $(this).children("[name='newtype']");
+            pros[i].competition = val1;
+            input1 = $(this).children("[name='textfield2']");
             val1 = input1.val();
-            quess[i].type = val1;
-            input1 = $(this).find("[name='newset']");
-            val1 = input1.val();
-            quess[i].set = val1;
+            pros[i].option1 = val1;
+            input1 = $(this).find("[name='textfield3']");
+			val1 = input1.val();
+            pros[i].option2 = val1;
+            input1 = $(this).find("[name='textfield4']");
+			val1 = input1.val();
+            pros[i].option3 = val1;
+            input1 = $(this).find("[name='textfield5']");
+			val1 = input1.val();
+            pros[i].option4 = val1;
+            input1 = $(this).find("[name='textfield6']");
+			val1 = input1.val();
+            pros[i].answer = val1;
+            input1 = $(this).find("[name='textfield7']");
+			val1 = input1.val();
+            pros[i].score = val1;
+   
             i++;
         });
         
@@ -69,7 +82,7 @@
             data:{
                 TestTitle:$("#title").val(),
                 LimitTime:$("#time").val(),
-				
+				problems:pros,
             },
             dataType:'json',
             async:false,
@@ -90,7 +103,7 @@
      
     <div id="question0" style="display: none;" sample="true">
 	  <button type="button" onclick="deleteProblem($(this).parent())">删除</button>
-	  <p >上传图片<input type="file" name="pic" accept="image/gif" /></p>
+	  <p >上传图片<input type="file" name="pic" accept="image/gif, image/*" /></p>
 	  
       <p >题目:<input type="text" name="textfield1" value="" /></p>
       <p >选项一:<input type="text" name="textfield2"  value=""/></p>

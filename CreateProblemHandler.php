@@ -30,13 +30,13 @@
 $conn = mysql_connect();
 mysql_select_db( 'problem', $conn );
 $sql = "CREATE TABLE competition$ID( ".
-       "problem_ID INT NOT NULL AUTO_INCREMENT, ".
+       "problem_ID int NOT NULL AUTO_INCREMENT, ".
        "competition varchar(1000), ".
        "option1 varchar(100), ".
 	   "option2 varchar(100),".
 	   "option3 varchar(100), ".
 	   "option4 varchar(100),".
-	   "filename,"
+	   "img         ,"//Í¼Æ¬
        "answer varchar(5), ".
        "score int(5); ";
 mysql_query( $sql, $conn );
@@ -57,29 +57,25 @@ mysql_query( $sql, $conn );
 mysql_close($conn);
 		
 		
-
 		
-  $problem = $_POST['problems'];
-  /*´Ë¶ÎÐèÐÞ¸Ä
-  for ($i=1; $i < count($problem); $i++) { 
-      $colum = $question[$i]['colum'];
-      $colum_type = $question[$i]['type'];
-      
-      $insert_query .= " `$colum` ";
-      if (!strcmp($colum_type,"text")) {
-          $insert_query .= "VARCHAR(255) NOT NULL ,";
-      } elseif (!strcmp($colum_type,"checkbox")) {
-          $colum_set = $question[$i]['set'];
-          $insert_query .= "SET($colum_set) NOT NULL ,";
-      } elseif (!strcmp($colum_type,"radio")) {
-          $colum_set = $question[$i]['set'];
-          $insert_query .= "ENUM($colum_set) NOT NULL ,";
-      }
-  }
-  */
+		
+    $problem = $_POST['problems'];
   
-  $insert_query = rtrim($insert_query,',');
-  $insert_query .= ") ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;";
-  $insert_result = $db->query($insert_query);
-  echo json_encode("Sucseeded!");
+    for ($i=1; $i < count($problem); $i++) { 
+       $competition = $problem[$i]['competition'];
+       $option1 = $problem[$i]['option1'];
+	   $option2 = $problem[$i]['option2'];
+	   $option3 = $problem[$i]['option3'];
+	   $option4 = $problem[$i]['option4'];
+	   $answer = $problem[$i]['answer'];
+	   $score = $problem[$i]['score'];
+	   $insert_query = "INSERT INTO `competition` (`competition`, `option1`, `option2`, `option3`, `option4`, `answer`, `score`) 
+                VALUES ('$competition', '$option1', '$option2', '$option3', '$option4', '$answer', '$score')";
+       $insert_result = $db->query($insert_query); 
+	}
+ 
+    $insert_query = rtrim($insert_query,',');
+    $insert_query .= "ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;";
+    $insert_result = $db->query($insert_query);
+    echo json_encode("Sucseeded!");
 ?>
