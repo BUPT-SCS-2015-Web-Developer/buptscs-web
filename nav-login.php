@@ -7,7 +7,7 @@
             </a>
         </li>
         <li>
-            <a href="info.php">
+            <a href="QDashboard.php">
                 <i class="fa fa-fw fa-lg fa-pencil-square-o"></i>
                 <span>问卷</span>
             </a>
