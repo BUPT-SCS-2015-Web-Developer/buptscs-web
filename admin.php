@@ -20,7 +20,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script type='text/javascript' src='js/jquery-1.12.2.min.js'>
+<script type='text/javascript' src='js/jquery-1.11.3.min.js'>
 </script>
 </head>
 <body>
