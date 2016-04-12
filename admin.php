@@ -43,11 +43,24 @@ javascript:window.history.forward(1);
 	if($check<=0)
 	{
 		echo "<script>";
-		echo "document.write('目前无人请假');";
+		echo "alert('目前无人请假');";
 		echo "</script>";
 	}
 	else
 	{
+		echo "<button id='all'>全员归校</button>";
+		echo "<script type='text/javascript'>      
+			$(document).ready(function(){
+				$(\"#all\").click(function(){
+					$.post(\"changeconfirm.php\",
+					{
+						student_ID:\"all\",
+					});
+					$(document).ready(function(){window.location.reload();});
+				})
+			});
+				";
+			echo "</script><br /><br />";	
 		foreach($check as $row)
 		{
 			echo $row->student_ID . "&emsp;" . $row->DataTime . "&emsp;" . $row->reason . "&emsp;";
