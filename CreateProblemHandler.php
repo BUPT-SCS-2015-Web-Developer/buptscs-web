@@ -13,7 +13,7 @@
   include_once "lib/mysql/ez_sql_mysql.php";
   include_once "db_config.php";
   
-  $db = new ezSQL_mysql($qs_user, $qs_password, $qs_database, $db_host);//这里应该怎么写啊啊啊
+  $db = new ezSQL_mysql($pb_user, $pb_password, $pb_database, $db_host);//这里应该怎么写啊啊啊
   $db->query("set names 'utf8'");
   
   
