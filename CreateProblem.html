@@ -47,16 +47,18 @@
     }
 
 
+
     function submitProblem(){
         var pros = new Array();
         var i=1;
+		
         $("#add").children("[sample='false']").each(function(){
             pros[i] = new Object();
 	
-            var input1 = $(this).children("[name='textfield1']");
+            var input1 = $(this).find("[name='textfield1']");
             var val1 = input1.val();
             pros[i].competition = val1;
-            input1 = $(this).children("[name='textfield2']");
+            input1 = $(this).find("[name='textfield2']");
             val1 = input1.val();
             pros[i].option1 = val1;
             input1 = $(this).find("[name='textfield3']");
