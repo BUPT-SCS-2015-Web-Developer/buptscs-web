@@ -90,5 +90,5 @@ $result = mysql_query($sql,$conn);
 	}
 	
     mysql_close($conn);
-    echo json_encode("Sucseeded!");
+    echo json_encode("已生成本套试卷!");
 ?>
