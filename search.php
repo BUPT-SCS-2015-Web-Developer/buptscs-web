@@ -19,25 +19,24 @@
     include_once "lib/shared/ez_sql_core.php";
     include_once "lib/mysql/ez_sql_mysql.php";
     include_once"db_config.php";
-    $db=new ezSQL_mysql($db_user,$db_password,$db_database,$db_host);
+    $db=new ezSQL_mysql($db_user,$db_password,$pb_database,$db_host);
     $db->query("set names 'utf8'");
 ?>
 <?php
-    $Problem_id=$_GET['id'];//第几套题
+    $Problem_id=$_GET['id'];//第几套题对应的序号
 ?>    
-<script>
+<script type="text/javascript">
 function details(){
-   x=user_id.value;
+   var x=user_id.value;
 //   x=Number(x);
+    window.open("./shijuan.php?id="+x+"&numberproblem=<?php echo $Problem_id?>",'open');
 
-    window.open("./shijuan.php?id="+x+"&numberproblem="+<?php echo $Problem_id?>);
-   
-	
 }
+
 </script>
     
-    精确学号查询:<input type="text" name='search_id' id='user_id'></input>
-    <input type="submit" value="search" onclick="details()"></input>
+    精确学号查询:<input type="text" name='search_id' id='user_id' />
+    <input type="submit" value="search" id="search" onclick="details()"/>
     <br><br>
 	
 
@@ -55,16 +54,23 @@ function details(){
 		echo '还没有同学做完题<br>';
 	}
 	else{
-		/*所有同学的ID从user中读*/
-	$get_all_studentID="SELECT user_ID FROM user WHERE user_type='student'";
-	$all_ids=$db->get_col("$get_all_studentID");
+
     $get_finished_id="SELECT student_ID FROM allscores$Problem_id ";//如果score不等于null= =
 	$finished_id=$db->get_col("$get_finished_id");
+	
+			/*所有同学的ID从user中读*/
+	$db->disconnect();
+	$db=new ezSQL_mysql($db_user,$db_password,$db_database,$db_host);
+    $db->query("set names 'utf8'");
+	$get_all_studentID="SELECT user_ID FROM user WHERE user_type='student'";
+	$all_ids=$db->get_col("$get_all_studentID");
+	$db->disconnect();
+	
 	$results=array_diff($all_ids,$finished_id);//在前面的数组而不在后面所有的数组
  //print_r($results); 
      array_multisort($results);
      if($results==NULL){
-	     echo '所有同学都已经答题啦';
+	     echo '没有同学还没答题';
      }
     else{
 	    echo '这些同学没有答题<br>'; 
@@ -109,6 +115,7 @@ if($infos!=NULL)
     {
 		echo $mark[$i];
         echo '&nbsp&nbsp';
+		$db=new ezSQL_mysql($db_user,$db_password,$pb_database,$db_host);
         $match_id_query="SELECT student_ID FROM allscores$Problem_id WHERE score=$mark[$i]";
         if($i==0||($i>=1&&$mark[$i]!=$mark[$i-1]))
         {

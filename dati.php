@@ -50,7 +50,7 @@
 
 <body class="selector">
 
-<a href="logout2.php"><strong>注销</strong></a><br>
+<a href="PDashboard.php"><strong>注销</strong></a><br>
    <?php $prob_id=$_GET['id'];?>
   <?php
   echo $username ."你好！";

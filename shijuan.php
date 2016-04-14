@@ -23,7 +23,7 @@
     include_once "lib/mysql/ez_sql_mysql.php";
     include_once"db_config.php";
  
-    $db=new ezSQL_mysql($db_user,$db_password,$db_database,$db_host);
+    $db=new ezSQL_mysql($db_user,$db_password,$pb_database,$db_host);
     $db->query("set names 'utf8'");
     
     $get_user_query = "SELECT * FROM competition$pro_id";
@@ -41,7 +41,7 @@ foreach ( $questions as $question ) {
 
 
   
-       echo $question->competition_ID;echo '.';echo $question->competition;echo '&nbsp&nbsp';
+       echo $question->problem_ID;echo '.';echo $question->competition;echo '&nbsp&nbsp';
        echo'(';
        
        $get_user_answer="SELECT answer FROM answer$pro_id WHERE question_ID=$i AND student_ID=$id";

@@ -4,7 +4,7 @@
     include_once "lib/mysql/ez_sql_mysql.php";
     include_once"db_config.php";
     $db=new ezSQL_mysql($db_user,$db_password,$pb_database,$db_host);
-  
+       $db->query("set names 'utf8'");
 ?>
 
 <?php
@@ -15,6 +15,9 @@
 		 echo '<a href=dati.php?id='.$problem->ID.'>';
 		 echo $problem->TestTitle;
 		 echo '</a>';
+		echo'&nbsp&nbsp';
+		 echo'&nbsp&nbspcreateuser:';
+		 echo $problem->CreateUser;
 		 echo '<br>';
 	 }
 	 

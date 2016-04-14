@@ -3,7 +3,7 @@
     include_once "lib/shared/ez_sql_core.php";
     include_once "lib/mysql/ez_sql_mysql.php";
     include_once"db_config.php";
-    $db=new ezSQL_mysql($db_user,$db_password,$db_database,$db_host);
+    $db=new ezSQL_mysql($db_user,$db_password,$pb_database,$db_host);
 
 ?>
 

@@ -12,6 +12,12 @@
                 <span>问卷</span>
             </a>
         </li>
+		<li>
+            <a href="PDashboard.php">
+                <i class="fa fa-fw fa-lg fa-problem"></i>
+                <span>答题</span>
+            </a>
+        </li>
         <li>
             <a href="askoff.php">
                 <i class="fa fa-fw fa-lg fa-comments-o"></i>
