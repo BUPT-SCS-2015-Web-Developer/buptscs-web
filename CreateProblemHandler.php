@@ -13,12 +13,12 @@
   include_once "lib/mysql/ez_sql_mysql.php";
   include_once "db_config.php";
   
-  $db = new ezSQL_mysql($pb_user, $pb_password, $pb_database, $db_host);
-  $db->query("set names 'utf8'");
+ // $db = new ezSQL_mysql($pb_user, $pb_password, $pb_database, $db_host);
+ //  $db->query("set names 'utf8'");
   
   
  
-$conn = mysql_connect();
+$conn = mysql_connect($db_host, $pb_user, $pb_password);
 mysql_select_db( 'problem', $conn );
   $ID = uniqid();
   $TestTitle = $_POST['TestTitle'];
@@ -27,9 +27,9 @@ mysql_select_db( 'problem', $conn );
   $sql = "INSERT INTO `problem`.`information` (`ID`, `TestTitle`, `CreateUser`, `LimitTime`) 
                 VALUES ('$ID', '$TestTitle', '$CreateUser', '$LimitTime')";
   $result = mysql_query($sql,$conn);
-	if ($result){
+	/*if ($result){
 		echo json_encode("添加信息成功");
-	}
+	}*/
 
 
 $sql = "CREATE TABLE competition$ID( ".
@@ -42,9 +42,9 @@ $sql = "CREATE TABLE competition$ID( ".
        "answer varchar(5), ".
 	   "score int(5)); ";
 $result = mysql_query($sql,$conn);
-	if ($result){
+	/*if ($result){
 		echo "<script>alert('创建题目信息表成功');</script>";
-	}
+	}*/
 
 
 $sql = "CREATE TABLE answer$ID( ".
@@ -52,9 +52,9 @@ $sql = "CREATE TABLE answer$ID( ".
        "question_ID int, ".
        "answer varchar(15)); ";
 $result = mysql_query($sql,$conn);
-	if ($result){
+	/*if ($result){
 		echo "<script>alert('创建学生答案表成功');</script>";
-	}
+	}*/
 
 
 $sql = "CREATE TABLE allscores$ID( ".
@@ -64,9 +64,9 @@ $sql = "CREATE TABLE allscores$ID( ".
 	   "start_time  bigint(20),".
        "submit_time date); ";
 $result = mysql_query($sql,$conn);
-	if ($result){
+	/*if ($result){
 		echo "<script>alert('创建分数表成功');</script>";
-	}
+	}*/
 
 		
 			
@@ -84,9 +84,9 @@ $result = mysql_query($sql,$conn);
 		$sql = "INSERT INTO `problem`.`competition` (`competition`, `option1`, `option2`, `option3`, `option4`, `answer`, `score`) 
                 VALUES ('$competition', '$option1', '$option2', '$option3', '$option4', '$answer', '$score')";
 		$result = mysql_query($sql,$conn);
-		if ($result){
+		/*if ($result){
 			echo "<script>alert('题目信息添加成功');</script>";
-		} 
+		} */
 	}
 	
     mysql_close($conn);
